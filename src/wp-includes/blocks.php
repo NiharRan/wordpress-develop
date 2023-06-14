@@ -1200,6 +1200,13 @@ function unregister_block_style( $block_name, $block_style_name ) {
 function block_has_support( $block_type, $feature, $default_value = false ) {
 	$block_support = $default_value;
 	if ( $block_type && property_exists( $block_type, 'supports' ) ) {
+
+		if ( count( $feature) === 1 ) {
+			return isset( $block_type->supports[$feature[0]] )
+			? $block_type->supports[$feature[0]] 
+			: $default_value;
+		}
+		
 		$block_support = _wp_array_get( $block_type->supports, $feature, $default_value );
 	}
 
